@@ -1,0 +1,19 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: "{{ _selenium_name }}"
+  namespace: "{{ _selenium_namespace }}"
+  labels:
+    app: "{{ _selenium_name }}"
+spec:
+  to:
+    kind: Service
+    name: "{{ _selenium_name }}"
+{% if _selenium_route != "" %}
+  host: "{{ _selenium_route }}"
+{% endif %}
+{% if _selenium_ssl|bool %}
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+{% endif %}

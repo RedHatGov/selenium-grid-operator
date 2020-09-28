@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ _selenium_name }}-selenium-hub"
+  namespace: "{{ _selenium_namespace }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "{{ _selenium_name }}"
+      deployment: selenium-hub
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        app: "{{ _selenium_name }}"
+        deployment: selenium-hub
+    spec:
+      serviceAccountName: "{{ _selenium_name }}"
+      containers:
+      - name: selenium-hub
+        image: "{{ _selenium_hub_image }}:{{ _selenium_hub_image_tag }}"
+        imagePullPolicy: "{{ _selenium_image_pull_policy }}"
+        ports:
+        - containerPort: 4444
+          protocol: TCP
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 8443
+          protocol: TCP
+        - containerPort: 8778
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /status
+            port: 4444
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /status
+            port: 4444
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          requests:
+            cpu: "{{ _selenium_hub_cpu_request }}"
+            memory: "{{ _selenium_hub_memory_request }}"
+          limits:
+            cpu: "{{ _selenium_hub_cpu_limit }}"
+            memory: "{{ _selenium_hub_memory_limit }}"

@@ -1,0 +1,40 @@
+= selenium-grid-ocp
+
+== Requirements
+
+This role is designed to set up Selenium Grid on an OpenShift or Kubernetes cluster cluster. The intended use for this role is in an Operator.
+
+== Role Variables
+
+[cols="2,1,1,4",options="header"]
+|====
+|Variable Name                  |Default                                    |Required     |Description
+|_selenium_state                   |present                                   |No           |`present` to install, `absent` to remove
+|_selenium_namespace               |selenium                                  |No           |Project Name to install Selenium Grid into
+|_selenium_name                    |selenium                                  |No           |Name of the Selenium Grid service
+|_selenium_memory_request          |512Mi                                     |No           |Minimum Memory Requirement
+|_selenium_memory_limit            |512Mi                                     |No           |Maximum Memory Requirement
+|_selenium_cpu_request             |200m                                      |No           |Minimum CPU Requirement
+|_selenium_cpu_limit               |500m                                      |No           |Maximum CPU Requirement
+|_selenium_wait_for_init           |True                                      |No           |Wait for the database pod to be running and ready
+|_selenium_hub_image               |quay.io/reghatgov/selenium-hub            |No           |Container image for selenium hub
+|_selenium_hub_image_tag           |latest                                    |No           |Tag for selenium hub container image
+|_selenium_node_chrome_image       |quay.io/reghatgov/selenium-node-chrome    |No           |Container image for selenium with chrome
+|_selenium_node_chrome_image_tag   |latest                                    |No           |Tag for selenium with chrome container image
+|_selenium_node_firefox_image      |quay.io/reghatgov/selenium-node-firefox   |No           |Container image for selenium with firefox
+|_selenium_node_firefox_image_tag  |latest                                    |No           |Tag for selenium with firefox container image
+|_selenium_image_pull_policy       |IfNotPresent                              |No           |pullPolicy for Selenium Grid container image
+|_selenium_expose_method           |Route                                     |No           |Options include `Route`, `Ingress`, and `None`
+|_selenium_expose_uri              |""                                        |No           |The URI to expose via Route/Ingress.
+|_selenium_ssl                     |True                                      |No           |Set up HTTPS for the Selenium Grid Route/Ingress
+|====
+
+== Dependencies
+
+* k8s module.
+* Working .kube/config configuration.
+* The Project/Namespace must exist
+
+== License
+
+BSD

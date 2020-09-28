@@ -1,0 +1,36 @@
+---
+  # Persistent Selenium Grid deployment playbook.
+  
+  # The following variables come from the ansible-operator
+  # - ansible_operator_meta.namespace
+  # - ansible_operator_meta.name (from the name of the CR)
+  
+  
+  - hosts: localhost
+    gather_facts: no
+    tasks:
+    - name: Set up Selenium Grid
+      include_role:
+        name: ./roles/selenium-grid-ocp
+      vars:
+        _selenium_namespace: "{{ ansible_operator_meta.namespace }}"
+        _selenium_name: "{{ ansible_operator_meta.name }}"
+  
+        _selenium_expose_method: "{{ expose.kind | default('Route') }}"
+        _selenium_expose_uri: "{{ expose.uri | default('') }}"
+        _selenium_ssl: "{{ expose.ssl | default(True) }}"
+  
+        _selenium_image_pull_policy: "{{ pull_policy | default('IfNotPresent') }}"
+  
+        _selenium_hub_memory_request: "{{ hub.resources.memory.request | default('2Gi') }}"
+        _selenium_hub_memory_limit: "{{ hub.resources.memory.limit | default('2Gi') }}"
+        _selenium_hub_cpu_request: "{{ hub.resources.cpu.request | default('500m') }}"
+        _selenium_hub_cpu_limit: "{{ hub.resources.cpu.limit | default('1') }}"
+        _selenium_hub_image: "{{ hub.src | default('quay.io/reghatgov/selenium-hub') }}"
+        _selenium_hub_image_tag: "{{ hub.tag | default('latest') }}"
+        
+        _selenium_node_chrome_image: "{{ chrome.src | default('quay.io/reghatgov/selenium-node-chrome') }}"
+        _selenium_node_chrome_image_tag: "{{ chrome.tag | default('latest') }}"
+        
+        _selenium_node_firefox_image: "{{ firefox.src | default('quay.io/reghatgov/selenium-node-firefox') }}"
+        _selenium_node_firefox_image_tag: "{{ firefox.tag | default('latest') }}"

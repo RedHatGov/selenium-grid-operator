@@ -1,0 +1,6 @@
+apiVersion: redhatgov.io/v1alpha1
+kind: SeleniumGrid
+metadata:
+  name: seleniumgrid-sample
+spec:
+  foo: bar

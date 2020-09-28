@@ -1,0 +1,21 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1beta1
+metadata:
+  name: "{{ _selenium_name }}"
+  namespace: "{{ _selenium_namespace }}"
+  labels:
+    app: "{{ _selenium_name }}"
+spec:
+{% if _selenium_ssl|bool %}
+  tls:
+  - hosts:
+    - "{{ _selenium_expose_uri }}"
+{% endif %}
+  rules:
+  - host: "{{ _selenium_expose_uri }}"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: "{{ _selenium_name }}"
+          servicePort: 4444

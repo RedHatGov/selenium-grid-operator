@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: "{{ _selenium_name }}"
+  namespace: "{{ _selenium_namespace }}"
+  labels:
+    app: "{{ _selenium_name }}"
+spec:
+  selector:
+    app: "{{ _selenium_name }}"
+    deployment: "{{ _selenium_name }}-selenium-hub"
+  ports:
+  - name: 4444-tcp
+    port: 4444
+    protocol: TCP
+    targetPort: 4444
+  sessionAffinity: None
+  type: ClusterIP
