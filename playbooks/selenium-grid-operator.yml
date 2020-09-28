@@ -26,11 +26,11 @@
         _selenium_hub_memory_limit: "{{ hub.resources.memory.limit | default('2Gi') }}"
         _selenium_hub_cpu_request: "{{ hub.resources.cpu.request | default('500m') }}"
         _selenium_hub_cpu_limit: "{{ hub.resources.cpu.limit | default('1') }}"
-        _selenium_hub_image: "{{ hub.src | default('quay.io/reghatgov/selenium-hub') }}"
+        _selenium_hub_image: "{{ hub.src | default('quay.io/redhatgov/selenium-hub') }}"
         _selenium_hub_image_tag: "{{ hub.tag | default('latest') }}"
         
-        _selenium_node_chrome_image: "{{ chrome.src | default('quay.io/reghatgov/selenium-node-chrome') }}"
+        _selenium_node_chrome_image: "{{ chrome.src | default('quay.io/redhatgov/selenium-node-chrome') }}"
         _selenium_node_chrome_image_tag: "{{ chrome.tag | default('latest') }}"
         
-        _selenium_node_firefox_image: "{{ firefox.src | default('quay.io/reghatgov/selenium-node-firefox') }}"
+        _selenium_node_firefox_image: "{{ firefox.src | default('quay.io/redhatgov/selenium-node-firefox') }}"
         _selenium_node_firefox_image_tag: "{{ firefox.tag | default('latest') }}"

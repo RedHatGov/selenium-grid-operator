@@ -8,22 +8,12 @@ spec:
   selector:
     matchLabels:
       app: "{{ _selenium_name }}"
-      deployment: selenium-node-firefox
-  strategy:
-    activeDeadlineSeconds: 21600
-    resources: {}
-    rollingParams:
-      intervalSeconds: 1
-      maxSurge: 25%
-      maxUnavailable: 25%
-      timeoutSeconds: 600
-      updatePeriodSeconds: 1
-    type: Rolling
+      deployment: "{{ _selenium_name }}-selenium-node-firefox"
   template:
     metadata:
       labels:
         app: "{{ _selenium_name }}"
-        deployment: selenium-node-firefox
+        deployment: "{{ _selenium_name }}-selenium-node-firefox"
     spec:
       serviceAccountName: "{{ _selenium_name }}"
       containers:

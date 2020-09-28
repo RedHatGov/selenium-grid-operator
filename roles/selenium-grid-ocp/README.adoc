@@ -17,11 +17,11 @@ This role is designed to set up Selenium Grid on an OpenShift or Kubernetes clus
 |_selenium_cpu_request             |200m                                      |No           |Minimum CPU Requirement
 |_selenium_cpu_limit               |500m                                      |No           |Maximum CPU Requirement
 |_selenium_wait_for_init           |True                                      |No           |Wait for the database pod to be running and ready
-|_selenium_hub_image               |quay.io/reghatgov/selenium-hub            |No           |Container image for selenium hub
+|_selenium_hub_image               |quay.io/redhatgov/selenium-hub            |No           |Container image for selenium hub
 |_selenium_hub_image_tag           |latest                                    |No           |Tag for selenium hub container image
-|_selenium_node_chrome_image       |quay.io/reghatgov/selenium-node-chrome    |No           |Container image for selenium with chrome
+|_selenium_node_chrome_image       |quay.io/redhatgov/selenium-node-chrome    |No           |Container image for selenium with chrome
 |_selenium_node_chrome_image_tag   |latest                                    |No           |Tag for selenium with chrome container image
-|_selenium_node_firefox_image      |quay.io/reghatgov/selenium-node-firefox   |No           |Container image for selenium with firefox
+|_selenium_node_firefox_image      |quay.io/redhatgov/selenium-node-firefox   |No           |Container image for selenium with firefox
 |_selenium_node_firefox_image_tag  |latest                                    |No           |Tag for selenium with firefox container image
 |_selenium_image_pull_policy       |IfNotPresent                              |No           |pullPolicy for Selenium Grid container image
 |_selenium_expose_method           |Route                                     |No           |Options include `Route`, `Ingress`, and `None`

@@ -3,26 +3,26 @@ _selenium_state: present
 _selenium_namespace: selenium
 _selenium_name: selenium
 
-_selenium_memory_request: 512Mi
-_selenium_memory_limit: 512Mi
-_selenium_cpu_request: 200m
-_selenium_cpu_limit: 500m
+_selenium_hub_memory_request: 512Mi
+_selenium_hub_memory_limit: 512Mi
+_selenium_hub_cpu_request: 200m
+_selenium_hub_cpu_limit: 500m
 
 _selenium_wait_for_init: true
 
-_selenium_hub_image: quay.io/reghatgov/selenium-hub
+_selenium_hub_image: quay.io/redhatgov/selenium-hub
 _selenium_hub_image_tag: latest
 
-_selenium_node_chrome_image: quay.io/reghatgov/selenium-node-chrome
+_selenium_node_chrome_image: quay.io/redhatgov/selenium-node-chrome
 _selenium_node_chrome_image_tag: latest
 
-_selenium_node_chrome_debug_image: quay.io/reghatgov/selenium-node-chrome-debug
+_selenium_node_chrome_debug_image: quay.io/redhatgov/selenium-node-chrome-debug
 _selenium_node_chrome_debug_image_tag: latest
 
-_selenium_node_firefox_image: quay.io/reghatgov/selenium-node-firefox
+_selenium_node_firefox_image: quay.io/redhatgov/selenium-node-firefox
 _selenium_node_firefox_image_tag: latest
 
-_selenium_node_firefox_debug_image: quay.io/reghatgov/selenium-node-firefox-debug
+_selenium_node_firefox_debug_image: quay.io/redhatgov/selenium-node-firefox-debug
 _selenium_node_firefox_debug_image_tag: latest
 
 _selenium_image_pull_policy: IfNotPresent

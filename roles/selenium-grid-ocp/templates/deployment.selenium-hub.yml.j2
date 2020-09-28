@@ -8,22 +8,12 @@ spec:
   selector:
     matchLabels:
       app: "{{ _selenium_name }}"
-      deployment: selenium-hub
-  strategy:
-    activeDeadlineSeconds: 21600
-    resources: {}
-    rollingParams:
-      intervalSeconds: 1
-      maxSurge: 25%
-      maxUnavailable: 25%
-      timeoutSeconds: 600
-      updatePeriodSeconds: 1
-    type: Rolling
+      deployment: "{{ _selenium_name }}-selenium-hub"
   template:
     metadata:
       labels:
         app: "{{ _selenium_name }}"
-        deployment: selenium-hub
+        deployment: "{{ _selenium_name }}-selenium-hub"
     spec:
       serviceAccountName: "{{ _selenium_name }}"
       containers:

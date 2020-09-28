@@ -25,38 +25,6 @@
     - merge
     definition: "{{ lookup('template', _selenium_expose_method + '.yml.j2') | from_yaml }}"
 
-- name: Get Selenium Grid Route Hostname
-  when:
-  - _selenium_state == "present"
-  - _selenium_expose_method == "Route"
-  k8s_info:
-    api_version: route.openshift.io/v1
-    kind: Route
-    name: "{{ _selenium_name }}"
-    namespace: "{{ _selenium_namespace }}"
-  register: r_route
-  until:
-    - (r_route.resources|length) > 0
-    - r_route.resources[0].spec.host is defined
-    - r_route.resources[0].spec.host|length > 0
-
-- name: Store Selenium Grid Route Hostname
-  when:
-  - _selenium_state == "present"
-  - _selenium_expose_method == "Route"
-  set_fact:
-    _selenium_actual_route: "{{ r_route.resources[0].spec.host }}"
-
-- name: Set Route dependant OpenShift Objects for Selenium Grid to {{ _selenium_state }}
-  k8s:
-    state: "{{ _selenium_state }}"
-    merge_type:
-    - strategic-merge
-    - merge
-    definition: "{{ lookup('template', item ) | from_yaml }}"
-  loop:
-  - config_map.yml.j2
-
 - name: Wait until application is available
   when:
     - _selenium_state == "present"
@@ -64,7 +32,7 @@
   k8s_facts:
     api_version: apps/v1
     kind: Deployment
-    name: "{{ _selenium_name }}"
+    name: "{{ _selenium_name }}-selenium-hub"
     namespace: "{{ _selenium_namespace }}"
   register: r_deployment
   until:
