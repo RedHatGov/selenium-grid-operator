@@ -1,0 +1,48 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+    operators.operatorframework.io/builder: operator-sdk-v1.0.1
+    operators.operatorframework.io/project_layout: ansible.sdk.operatorframework.io/v1
+  name: selenium-grid-operator.vX.Y.Z
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions: {}
+  description: Deploys a Selenium Grid cluster with an exposed hub, a Chrome node, and a Firefox node.
+  displayName: Selenium Grid Operator
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      deployments: null
+    strategy: ""
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - redhatgov
+  - selenium
+  - devsecops
+  links:
+  - name: Selenium Grid Operator
+    url: https://selenium-grid-operator.domain
+  maintainers:
+  - email: jflowers@redhat.com
+    name: Jay Flowers
+  - email: jharmison@redhat.com
+    name: James Harmison
+  maturity: alpha
+  provider:
+    name: RedHatGov
+    url: redhatgov.io
+  version: 0.0.0
