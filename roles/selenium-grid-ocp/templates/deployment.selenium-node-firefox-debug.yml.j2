@@ -22,7 +22,7 @@ spec:
         imagePullPolicy: "{{ _selenium_image_pull_policy }}"
         env:
         - name: HUB_HOST
-          value: "{{ _selenium_name }}-selenium-hub"
+          value: "{{ _selenium_name }}"
         - name: HUB_PORT_PARAM
           value: "4444"
         ports:
