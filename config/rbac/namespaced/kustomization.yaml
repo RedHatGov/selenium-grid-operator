@@ -6,5 +6,5 @@ resources:
 - role_binding.yaml
 - ../leader_election_role.yaml
 - ../leader_election_role_binding.yaml
-- ../gitea_editor_role.yaml
-- ../gitea_viewer_role.yaml
+- ../seleniumgrid_editor_role.yaml
+- ../seleniumgrid_viewer_role.yaml
