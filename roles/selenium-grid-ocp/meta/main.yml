@@ -1,5 +1,5 @@
 galaxy_info:
-  author: James Harmison
+  author: Jay Flowers
   description: Role to set up Selenium Grid on an OpenShift (Kubernetes) Cluster
   company: Red Hat
   license: Apache

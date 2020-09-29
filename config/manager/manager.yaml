@@ -28,5 +28,4 @@ spec:
             - "--enable-leader-election"
             - "--leader-election-id=selenium-grid-operator"
           image: controller:latest
-          imagePullPolicy: Always
       terminationGracePeriodSeconds: 10
