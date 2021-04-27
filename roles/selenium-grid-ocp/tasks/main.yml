@@ -1,4 +1,11 @@
 ---
+- fail:
+    msg: "Must set expose.uri when using Ingress as expose.kind and when expose.ssl is True"
+  when:
+    - _selenium_ssl
+    - _selenium_expose_method == 'Ingress'
+    - _selenium_expose_uri is empty
+
 # tasks file for Selenium Grid
 - name: Set OpenShift Objects for Selenium Grid to {{ _selenium_state }}
   k8s:

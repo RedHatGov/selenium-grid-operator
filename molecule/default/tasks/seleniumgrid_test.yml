@@ -5,15 +5,54 @@
     namespace: '{{ namespace }}'
     definition: "{{ lookup('template', '/'.join([samples_dir, cr_file])) | from_yaml }}"
     wait: yes
-    wait_timeout: 300
+    wait_timeout: 180
     wait_condition:
       type: Running
       reason: Successful
       status: "True"
   vars:
-    cr_file: 'redhatgov_v1alpha1_seleniumgrid.yaml'
+    cr_file: 'redhatgov_v1alpha1_seleniumgrid_molecule.yaml'
 
-- name: Add assertions here
-  assert:
-    that: false
-    fail_msg: FIXME Add real assertions for your operator
+- name: Remove the redhatgov.io/v1alpha1.SeleniumGrid
+  k8s:
+    state: absent
+    namespace: '{{ namespace }}'
+    definition: "{{ lookup('template', '/'.join([samples_dir, cr_file])) | from_yaml }}"
+  vars:
+    cr_file: 'redhatgov_v1alpha1_seleniumgrid_molecule.yaml'
+
+- name: Apply the SeleniumGrid CR in an alternate namespace
+  k8s:
+    state: present
+    namespace: '{{ namespace }}-alt'
+    definition: "{{ lookup('template', '/'.join([samples_dir, cr_file])) | from_yaml | combine(namespace_mod) }}"
+  vars:
+    cr_file: 'redhatgov_v1alpha1_seleniumgrid_molecule.yaml'
+    namespace_mod:
+      metadata:
+        namespace: '{{ namespace }}-alt'
+        name: selenium-grid-sample-alt
+
+- name: Wait for CR to be Reconciled
+  k8s_info:
+    api_version: v1alpha1
+    kind: SeleniumGrid
+    namespace: '{{ namespace }}-alt'
+    name: selenium-grid-sample-alt
+  register: namespace_modded_cr
+  until: namespace_modded_cr.resources[0].status | json_query("conditions[?(@.reason=='Successful')]")
+  retries: 5
+  delay: 60
+  ignore_errors: true
+
+- when:
+  - scope == "namespace"
+  - namespace_modded_cr.resources[0].status is defined
+  fail:
+    msg: "Additional CR found in alternate namespace when using namespace scope."
+
+- when:
+  - scope == "cluster"
+  - namespace_modded_cr.resources[0].status is not defined
+  fail:
+    msg: "Additional CR NOT found in alternate namespace when using cluster scope."
