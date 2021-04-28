@@ -12,10 +12,12 @@ spec:
     - "{{ _selenium_expose_uri }}"
 {% endif %}
   rules:
-  - host: "{{ _selenium_expose_uri }}"
-    http:
+  - http:
       paths:
       - path: /
         backend:
           serviceName: "{{ _selenium_name }}"
           servicePort: 4444
+{% if _selenium_expose_uri %}
+    host: {{ _selenium_expose_uri }}
+{% endif %}
